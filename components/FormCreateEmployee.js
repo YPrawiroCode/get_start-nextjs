@@ -58,6 +58,8 @@ const FormCreateEmployee = () => {
           icon: "success",
           title: "Data Tersimpan",
           text: response.message,
+        }).then((value) => {
+          location.reload();
         });
       } else if (response.statusCode === 400) {
         Swal.fire({

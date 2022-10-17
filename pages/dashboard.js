@@ -4,7 +4,8 @@ import { useState } from "react";
 import FormCreateEmployee from "../components/FormCreateEmployee";
 import profilPic from "../public/images/anonym.jpeg";
 import Image from "next/image";
-import Swal from "sweetalert2";
+
+import Table from "../components/table";
 
 const Dashboard = () => {
   return (
@@ -29,7 +30,7 @@ const Dashboard = () => {
       <FormCreateEmployee />
 
       <div>
-        <h1>Footer</h1>
+        <Table />
       </div>
     </>
   );
