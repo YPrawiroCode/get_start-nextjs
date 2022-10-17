@@ -4,7 +4,7 @@ const dayjs = require("dayjs");
 const utc = require("dayjs/plugin/utc");
 dayjs.extend(utc);
 
-const ReadOnlyRow = ({ data, index, handleEditClick }) => {
+const ReadOnlyRow = ({ data, index, handleEditClick, handleDeleteClick }) => {
   return (
     <tr>
       <td className={tableStyles.td}>{index + 1}</td>
@@ -19,6 +19,9 @@ const ReadOnlyRow = ({ data, index, handleEditClick }) => {
       <td className={tableStyles.td}>
         <button type="button" onClick={(event) => handleEditClick(event, data)}>
           Edit
+        </button>
+        <button type="button" onClick={() => handleDeleteClick(data._id)}>
+          Delete
         </button>
       </td>
     </tr>

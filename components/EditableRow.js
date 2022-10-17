@@ -5,7 +5,14 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { TextField } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-const EditableRow = ({ data, index }) => {
+import tableStyles from "./table.module.css";
+
+const EditableRow = ({
+  data,
+  index,
+  handleEditFormChange,
+  handleCancelClick,
+}) => {
   const [date_join, setSelectedDate] = useState();
 
   const [employeeName, setEmployeeName] = useState();
@@ -15,6 +22,7 @@ const EditableRow = ({ data, index }) => {
 
   const [gender, setGender] = useState();
   const [address, setAddress] = useState();
+
   return (
     <tr>
       <td>{index + 1}</td>
@@ -99,6 +107,14 @@ const EditableRow = ({ data, index }) => {
           placeholder="Address"
           onChange={(e) => setAddress(e.target.value)}
         ></textarea>
+      </td>
+      <td className={tableStyles.td}>
+        <button type="button" onClick={handleEditFormChange}>
+          Save
+        </button>
+        <button type="button" onClick={handleCancelClick}>
+          Cancel
+        </button>
       </td>
     </tr>
   );
