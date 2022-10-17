@@ -14,9 +14,7 @@ dayjs.extend(utc);
 
 const Table = () => {
   const [bioEmployee, setBioEmployee] = useState([]);
-  const [editEmployeeId, setEditEmployeeId] = useState(
-    "634d10f65da5333e7f3b5593"
-  );
+  const [editEmployeeId, setEditEmployeeId] = useState(null);
 
   useEffect(() => {
     getBioEmployee();
@@ -29,6 +27,11 @@ const Table = () => {
       const employee = result.data;
       setBioEmployee(employee);
     });
+  };
+
+  const handleEditClick = (event, data) => {
+    event.preventDefault();
+    setEditEmployeeId(data._id);
   };
 
   return (
@@ -44,6 +47,7 @@ const Table = () => {
               <th className={tableStyles.th}>Division</th>
               <th className={tableStyles.th}>Gender</th>
               <th className={tableStyles.th}>Address</th>
+              <th className={tableStyles.th}>Actions</th>
             </tr>
           </thead>
           <tbody className={tableStyles.td}>
@@ -52,7 +56,12 @@ const Table = () => {
                 {editEmployeeId === data._id ? (
                   <EditableRow index={index} />
                 ) : (
-                  <ReadOnlyRow key={index} index={index} data={data} />
+                  <ReadOnlyRow
+                    key={index}
+                    index={index}
+                    data={data}
+                    handleEditClick={handleEditClick}
+                  />
                 )}
               </Fragment>
             ))}
