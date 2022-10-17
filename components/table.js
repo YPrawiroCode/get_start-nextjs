@@ -10,6 +10,7 @@ import EditableRow from "./EditableRow";
 import { data } from "autoprefixer";
 
 import Swal from "sweetalert2";
+import { test } from "gray-matter";
 
 const dayjs = require("dayjs");
 const utc = require("dayjs/plugin/utc");
@@ -18,6 +19,10 @@ dayjs.extend(utc);
 const Table = () => {
   const [bioEmployee, setBioEmployee] = useState([]);
   const [editEmployeeId, setEditEmployeeId] = useState(null);
+
+  const [editFormData, setEditFormData] = useState({
+    employeeName: "",
+  });
 
   useEffect(() => {
     getBioEmployee();
@@ -52,11 +57,6 @@ const Table = () => {
 
   const handleDeleteClick = async (employeeId) => {
     try {
-      console.log(
-        "🚀 ~ file: table.js ~ line 52 ~ handleDeleteClick ~ employeeId",
-        employeeId
-      );
-
       await axios
         .delete(
           `https://ms-yusufprawiro-betest.cyclic.app/api/employee/del/${employeeId}`,
@@ -69,10 +69,6 @@ const Table = () => {
         )
         .then((result) => {
           const response = result.data;
-          console.log(
-            "🚀 ~ file: table.js ~ line 68 ~ ).then ~ response",
-            response
-          );
           if (response.statusCode === 200) {
             Swal.fire({
               // position: "middle",
@@ -92,47 +88,79 @@ const Table = () => {
     } catch (error) {
       console.log(error);
     }
-    // const newEmployee = [...bioEmployee.data]
-
-    // const index = bioEmployee.data.findIndex((employee)=> employee._id === employeeId)
   };
 
   const handleEditClick = (event, data) => {
+    console.log("🚀 ~ file: table.js ~ line 94 ~ handleEditClick ~ data", data);
     event.preventDefault();
     setEditEmployeeId(data._id);
+
+    const formValues = {
+      employeeName: data.employeeName,
+    };
+
+    setEditFormData(formValues);
   };
 
-  const handleEditFormChange = async (e) => {
+  const handleEditFormChange = async (e, data, employeeId) => {
+    console.log(
+      "🚀 ~ file: table.js ~ line 95 ~ handleEditFormChange ~ employeeId",
+      employeeId
+    );
     try {
       e.preventDefault();
-      const response = await editEmployee({
-        employeeName,
-        date_join,
-        status,
-        division,
-        gender,
-        address,
-      });
+
+      const editedEmployee = {
+        employeeName: data.employeeName,
+      };
       console.log(
-        "🚀 ~ file: dashboard.js ~ line 46 ~ handleSubmit ~ response",
-        response
+        "🚀 ~ file: table.js ~ line 105 ~ handleEditFormChange ~ editedEmployee",
+        editedEmployee
       );
-      if (response.statusCode === 201) {
-        Swal.fire({
-          position: "middle",
-          icon: "success",
-          title: "Data Tersimpan",
-          text: response.message,
-        }).then((value) => {
-          location.reload();
-        });
-      } else if (response.statusCode === 400) {
-        Swal.fire({
-          icon: "error",
-          title: "Gagal Tersimpan",
-          text: response.message,
-        });
-      }
+
+      // const newEmployee = [...contacts];
+
+      // const index = contacts.findIndex(
+      //   (contact) => contact.id === editContactId
+      // );
+
+      // setContacts(newContacts);
+      // setEditContactId(null);
+
+      // await axios
+      //   .put(
+      //     `https://ms-yusufprawiro-betest.cyclic.app/api/employee/update/${employeeId}`,
+      //     {},
+      //     {
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //         Authorization: localStorage.getItem("token"),
+      //       },
+      //     }
+      //   )
+      //   .then((result) => {
+      //     const response = result.data;
+      //     console.log(
+      //       "🚀 ~ file: table.js ~ line 111 ~ .then ~ response",
+      //       response
+      //     );
+      //     if (response.statusCode === 200) {
+      //       Swal.fire({
+      //         // position: "middle",
+      //         icon: "success",
+      //         title: "Data Sukses Diperbarui",
+      //         text: response.message,
+      //       }).then((value) => {
+      //         location.reload();
+      //       });
+      //     } else {
+      //       Swal.fire({
+      //         icon: "error",
+      //         title: "Gagal Tersimpan",
+      //       });
+      //     }
+      //   });
+      setEditFormData(editedEmployee);
     } catch (error) {
       console.log(error);
     }
@@ -160,6 +188,7 @@ const Table = () => {
                 {editEmployeeId === data._id ? (
                   <EditableRow
                     index={index}
+                    data={data}
                     handleCancelClick={handleCancelClick}
                     handleEditFormChange={handleEditFormChange}
                   />

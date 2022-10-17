@@ -31,6 +31,8 @@ const EditableRow = ({
           type="text"
           placeholder="Enter a name..."
           name="nameEmployee"
+          value={data.employeeName}
+          onChange={handleEditFormChange}
         ></input>
       </td>
       <td>
@@ -39,11 +41,12 @@ const EditableRow = ({
             label="Join Date"
             value={date_join}
             dateFormat="dd/MM/yyyy"
-            onChange={(newValue) => {
-              const d = new Date(newValue).toLocaleDateString();
-              console.log(d);
-              setSelectedDate(d);
-            }}
+            // onChange={(newValue) => {
+            //   const d = new Date(newValue).toLocaleDateString();
+            //   console.log(d);
+            //   setSelectedDate(d);
+            // }}
+            onChange={handleEditFormChange}
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
@@ -55,7 +58,8 @@ const EditableRow = ({
           id="status"
           name="status"
           value="Employee"
-          onChange={(e) => setStatus(e.target.value)}
+          onChange={handleEditFormChange}
+          checked={true}
         />
         Employee
         <input
@@ -64,7 +68,8 @@ const EditableRow = ({
           id="status"
           name="status"
           value="Intership"
-          onChange={(e) => setStatus(e.target.value)}
+          onChange={handleEditFormChange}
+          checked={false}
         />
         Intership
       </td>
@@ -75,7 +80,8 @@ const EditableRow = ({
           name="division"
           placeholder="Division"
           className="form-control block w-full px-3 py-1.5 text-base font-normaltext-gray-700bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-          onChange={(e) => setDivision(e.target.value)}
+          value={data.division}
+          onChange={handleEditFormChange}
         />
       </td>
       <td>
@@ -85,7 +91,8 @@ const EditableRow = ({
           id="gender"
           name="gender"
           value="Male"
-          onChange={(e) => setGender(e.target.value)}
+          onChange={handleEditFormChange}
+          checked={true}
         />
         <p className="pr-5">Male</p>
         <input
@@ -94,7 +101,7 @@ const EditableRow = ({
           id="gender"
           name="gender"
           value="Female"
-          onChange={(e) => setGender(e.target.value)}
+          onChange={handleEditFormChange}
         />
         Female
       </td>
@@ -105,11 +112,15 @@ const EditableRow = ({
           name="address"
           rows="2"
           placeholder="Address"
-          onChange={(e) => setAddress(e.target.value)}
+          value={data.address}
+          onChange={handleEditFormChange}
         ></textarea>
       </td>
       <td className={tableStyles.td}>
-        <button type="button" onClick={handleEditFormChange}>
+        <button
+          type="button"
+          onClick={(e) => handleEditFormChange(e, data, data._id)}
+        >
           Save
         </button>
         <button type="button" onClick={handleCancelClick}>
