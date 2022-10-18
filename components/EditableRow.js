@@ -7,7 +7,27 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 import tableStyles from "./table.module.css";
 
+async function editEmployee(credentials) {
+  console.log(
+    "🚀 ~ file: EditableRow.js ~ line 11 ~ editEmployee ~ credentials",
+    credentials
+  );
+
+  // return fetch(
+  //   `https://ms-yusufprawiro-betest.cyclic.app/api/employee/update/${}`,
+  //   {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: localStorage.getItem("token"),
+  //     },
+  //     body: JSON.stringify(credentials),
+  //   }
+  // ).then((data) => data.json());
+}
+
 const EditableRow = ({
+  editFormData,
   data,
   index,
   handleEditFormChange,
@@ -31,8 +51,9 @@ const EditableRow = ({
           type="text"
           placeholder="Enter a name..."
           name="nameEmployee"
-          value={data.employeeName}
+          // value={data.employeeName}
           onChange={handleEditFormChange}
+          // onChange={(e) => setEmployeeName(e.target.value)}
         ></input>
       </td>
       <td>
@@ -58,6 +79,7 @@ const EditableRow = ({
           id="status"
           name="status"
           value="Employee"
+          // onChange={(e) => setStatus(e.target.value)}
           onChange={handleEditFormChange}
           checked={true}
         />
@@ -68,6 +90,7 @@ const EditableRow = ({
           id="status"
           name="status"
           value="Intership"
+          // onChange={(e) => setStatus(e.target.value)}
           onChange={handleEditFormChange}
           checked={false}
         />
@@ -81,6 +104,7 @@ const EditableRow = ({
           placeholder="Division"
           className="form-control block w-full px-3 py-1.5 text-base font-normaltext-gray-700bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
           value={data.division}
+          // onChange={(e) => setDivision(e.target.value)}
           onChange={handleEditFormChange}
         />
       </td>
@@ -91,6 +115,7 @@ const EditableRow = ({
           id="gender"
           name="gender"
           value="Male"
+          // onChange={(e) => setGender(e.target.value)}
           onChange={handleEditFormChange}
           checked={true}
         />
@@ -101,6 +126,7 @@ const EditableRow = ({
           id="gender"
           name="gender"
           value="Female"
+          // onChange={(e) => setGender(e.target.value)}
           onChange={handleEditFormChange}
         />
         Female
@@ -113,13 +139,16 @@ const EditableRow = ({
           rows="2"
           placeholder="Address"
           value={data.address}
+          // onChange={(e) => setAddress(e.target.value)}
           onChange={handleEditFormChange}
         ></textarea>
       </td>
       <td className={tableStyles.td}>
         <button
-          type="button"
-          onClick={(e) => handleEditFormChange(e, data, data._id)}
+          // type="button"
+          type="submit"
+          // onClick={(e) => handleEditFormChange(e, data, data._id)}
+          // onClick={e => handleSubmit(e, )}
         >
           Save
         </button>

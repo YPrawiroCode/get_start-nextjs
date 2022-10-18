@@ -18,6 +18,10 @@ dayjs.extend(utc);
 
 const Table = () => {
   const [bioEmployee, setBioEmployee] = useState([]);
+  const [employee, setEmployeeData] = useState({
+    employeeName: "",
+  });
+
   const [editEmployeeId, setEditEmployeeId] = useState(null);
 
   const [editFormData, setEditFormData] = useState({
@@ -98,8 +102,38 @@ const Table = () => {
     const formValues = {
       employeeName: data.employeeName,
     };
+    console.log(
+      "🚀 ~ file: table.js ~ line 101 ~ handleEditClick ~ formValues",
+      formValues
+    );
 
     setEditFormData(formValues);
+  };
+
+  const handleEditFormSubmit = (e) => {
+    e.preventDefault();
+
+    const editedContact = {
+      employeeName: editFormData.employeeName,
+    };
+    console.log(
+      "🚀 ~ file: table.js ~ line 115 ~ handleEditFormSubmit ~ editedContact",
+      editedContact
+    );
+
+    const newContacts = [data];
+
+    console.log(
+      "🚀 ~ file: table.js ~ line 127 ~ handleEditFormSubmit ~ bioEmployee",
+      bioEmployee
+    );
+    // const index = bioEmployee.findIndex(
+    //   (contact) => contact._id === setEditEmployeeId
+    // );
+
+    // newContacts[index] = editedContact;
+    // setBioEmployee(newContacts);
+    setEditEmployeeId(null);
   };
 
   const handleEditFormChange = async (e, data, employeeId) => {
@@ -108,15 +142,33 @@ const Table = () => {
       employeeId
     );
     try {
+      console.log(
+        "🚀 ~ file: table.js ~ line 202 ~ handleEditFormChange ~ e",
+        e
+      );
+
       e.preventDefault();
 
-      const editedEmployee = {
-        employeeName: data.employeeName,
-      };
-      console.log(
-        "🚀 ~ file: table.js ~ line 105 ~ handleEditFormChange ~ editedEmployee",
-        editedEmployee
-      );
+      const fieldName = e.target.getAttribute("name");
+      const fieldValue = e.target.value;
+
+      // const editedEmployee = {
+      //   employeeName: data.employeeName,
+      //   date_join: data.date_join,
+      //   status: data.status,
+      //   division: data.division,
+      //   gender: data.gender,
+      //   address: data.address,
+      // };
+      // console.log(
+      //   "🚀 ~ file: table.js ~ line 105 ~ handleEditFormChange ~ editedEmployee",
+      //   editedEmployee
+      // );
+
+      const newFormData = { ...editFormData };
+      newFormData[fieldName] = fieldValue;
+
+      setEditFormData(newFormData);
 
       // const newEmployee = [...contacts];
 
@@ -160,7 +212,6 @@ const Table = () => {
       //       });
       //     }
       //   });
-      setEditFormData(editedEmployee);
     } catch (error) {
       console.log(error);
     }
@@ -168,7 +219,7 @@ const Table = () => {
 
   return (
     <div className="app-container">
-      <form>
+      <form onSubmit={handleEditFormSubmit}>
         <table className={tableStyles.table}>
           <thead className={tableStyles.th}>
             <tr>
