@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+import { AiFillSave } from "react-icons/ai";
+import { GiCancel } from "react-icons/gi";
+
 import "react-datepicker/dist/react-datepicker.css";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { TextField } from "@mui/material";
@@ -51,9 +54,10 @@ const EditableRow = ({
           type="text"
           placeholder="Enter a name..."
           name="nameEmployee"
-          // value={data.employeeName}
-          onChange={handleEditFormChange}
+          value={data.employeeName}
+          // onChange={handleEditFormChange}
           // onChange={(e) => setEmployeeName(e.target.value)}
+          onChange={handleEditFormChange}
         ></input>
       </td>
       <td>
@@ -105,7 +109,7 @@ const EditableRow = ({
           className="form-control block w-full px-3 py-1.5 text-base font-normaltext-gray-700bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
           value={data.division}
           // onChange={(e) => setDivision(e.target.value)}
-          onChange={handleEditFormChange}
+          // onChange={(e) => handleEditFormChange(e.target.value)}
         />
       </td>
       <td>
@@ -144,17 +148,23 @@ const EditableRow = ({
         ></textarea>
       </td>
       <td className={tableStyles.td}>
-        <button
-          // type="button"
-          type="submit"
-          // onClick={(e) => handleEditFormChange(e, data, data._id)}
-          // onClick={e => handleSubmit(e, )}
-        >
-          Save
-        </button>
-        <button type="button" onClick={handleCancelClick}>
-          Cancel
-        </button>
+        <div className="flex">
+          <AiFillSave />
+          <button
+            className="px-2"
+            // type="button"
+            type="submit"
+            // onClick={(e) => handleEditFormChange(e, data, data._id)}
+            onClick={handleEditFormChange}
+          >
+            Save
+          </button>
+
+          <GiCancel />
+          <button className="px-2" type="button" onClick={handleCancelClick}>
+            Cancel
+          </button>
+        </div>
       </td>
     </tr>
   );

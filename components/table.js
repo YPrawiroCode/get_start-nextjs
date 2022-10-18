@@ -137,14 +137,14 @@ const Table = () => {
   };
 
   const handleEditFormChange = async (e, data, employeeId) => {
-    console.log(
-      "🚀 ~ file: table.js ~ line 95 ~ handleEditFormChange ~ employeeId",
-      employeeId
-    );
     try {
       console.log(
-        "🚀 ~ file: table.js ~ line 202 ~ handleEditFormChange ~ e",
-        e
+        "🚀 ~ file: table.js ~ line 140 ~ handleEditFormChange ~ data",
+        data
+      );
+      console.log(
+        "🚀 ~ file: table.js ~ line 95 ~ handleEditFormChange ~ employeeId",
+        employeeId
       );
 
       e.preventDefault();
